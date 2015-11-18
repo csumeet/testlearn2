@@ -4,4 +4,7 @@
                xmlns="http://xmlns.oracle.com/sca/1.0"
                xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns:ui="http://xmlns.oracle.com/soa/designer/">
+  <service name="Mediator1" ui:wsdlLocation="Service1.wsdl">
+    <interface.wsdl interface="http://oracle.com/sca/soapservice/TestApp/TestSOA/Service1#wsdl.interface(execute_ptt)"/>
+  </service>
 </componentType>
