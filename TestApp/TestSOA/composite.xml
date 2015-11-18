@@ -32,6 +32,9 @@
     <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
     <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string" many="false">async.persist</property>
   </component>
+  <component name="Mediator2">
+    <implementation.mediator src="Mediator2.mplan"/>
+  </component>
   <wire>
     <source.uri>bpel_client_ep</source.uri>
     <target.uri>BPEL/bpel_client</target.uri>
