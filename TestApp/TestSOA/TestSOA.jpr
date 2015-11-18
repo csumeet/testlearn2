@@ -1,5 +1,10 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <jpr:project xmlns:jpr="http://xmlns.oracle.com/ide/project">
+   <url n="BPEL_bpelFileURL" path="BPEL.bpel"/>
+   <value n="BPEL_Namespace" v="http://xmlns.oracle.com/TestApp/TestSOA/BPEL"/>
+   <value n="BPEL_ProcessName" v="BPEL"/>
+   <value n="BPEL_Template" v="BPEL_SYNC_PROCESS"/>
+   <value n="BPEL_wsdl" v="BPEL.wsdl"/>
    <value n="BPELProcess1_Namespace" v="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess1"/>
    <value n="BPELProcess1_ProcessName" v="BPELProcess1"/>
    <value n="BPELProcess1_Template" v="BPEL_ASYNC_PROCESS"/>
@@ -65,7 +70,7 @@
       <string v="oracle.bpm.fusion.repository.BPMProjectSettings/bpmProjectsProcessesContentSet"/>
    </list>
    <value n="defaultPackage" v="testsoa"/>
-   <value n="Namespace" v="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess1"/>
+   <value n="Namespace" v="http://xmlns.oracle.com/TestApp/TestSOA/BPEL"/>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="url-path"/>
@@ -368,8 +373,8 @@
          </list>
       </hash>
    </hash>
-   <value n="ProcessName" v="BPELProcess1"/>
-   <value n="Template" v="BPEL_ASYNC_PROCESS"/>
+   <value n="ProcessName" v="BPEL"/>
+   <value n="Template" v="BPEL_SYNC_PROCESS"/>
    <value n="TestBPEL_Namespace" v="http://xmlns.oracle.com/TestApp/TestSOA/TestBPEL"/>
    <value n="TestBPEL_ProcessName" v="TestBPEL"/>
    <value n="TestBPEL_Template" v="BPEL_SYNC_PROCESS"/>

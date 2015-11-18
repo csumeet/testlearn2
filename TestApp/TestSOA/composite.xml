@@ -10,8 +10,38 @@
            xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
            xmlns:orawsp="http://schemas.oracle.com/ws/2006/01/policy"
            xmlns:ui="http://xmlns.oracle.com/soa/designer/">
+  <import namespace="http://xmlns.oracle.com/TestApp/TestSOA/BPEL" location="BPEL.wsdl" importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/TestApp/TestSOA/Service1" location="Service1.wsdl" importType="wsdl"/>
+  <import namespace="http://oracle.com/sca/soapservice/TestApp/TestSOA/Service1" location="Service1Wrapper.wsdl" importType="wsdl"/>
+  <service name="bpel_client_ep" ui:wsdlLocation="BPEL.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/TestApp/TestSOA/BPEL#wsdl.interface(BPEL)"/>
+    <binding.ws port="http://xmlns.oracle.com/TestApp/TestSOA/BPEL#wsdl.endpoint(bpel_client_ep/BPEL_pt)"/>
+  </service>
+  <service name="Service1" ui:wsdlLocation="Service1.wsdl">
+    <interface.wsdl interface="http://oracle.com/sca/soapservice/TestApp/TestSOA/Service1#wsdl.interface(execute_ptt)"/>
+    <binding.ws port="http://oracle.com/sca/soapservice/TestApp/TestSOA/Service1#wsdl.endpoint(Service1/execute_pt)">
+      <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">NEVER</property>
+    </binding.ws>
+  </service>
   <property name="productVersion" type="xs:string" many="false">11.1.1.7.8</property>
   <component name="Mediator1">
     <implementation.mediator src="Mediator1.mplan"/>
   </component>
+  <component name="BPEL" version="2.0">
+    <implementation.bpel src="BPEL.bpel"/>
+    <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
+    <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string" many="false">async.persist</property>
+  </component>
+  <wire>
+    <source.uri>bpel_client_ep</source.uri>
+    <target.uri>BPEL/bpel_client</target.uri>
+  </wire>
+  <wire>
+    <source.uri>Service1</source.uri>
+    <target.uri>Mediator1/Mediator1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>BPEL/Mediator1.Mediator1</source.uri>
+    <target.uri>Mediator1/Mediator1</target.uri>
+  </wire>
 </composite>
