@@ -13,6 +13,7 @@
   <import namespace="http://xmlns.oracle.com/TestApp/TestSOA/BPEL" location="BPEL.wsdl" importType="wsdl"/>
   <import namespace="http://oracle.com/sca/soapservice/TestApp/TestSOA/Service1" location="Service1.wsdl" importType="wsdl"/>
   <import namespace="http://oracle.com/sca/soapservice/TestApp/TestSOA/Service1" location="Service1Wrapper.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess1" location="BPELProcess1.wsdl" importType="wsdl"/>
   <service name="bpel_client_ep" ui:wsdlLocation="BPEL.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/TestApp/TestSOA/BPEL#wsdl.interface(BPEL)"/>
     <binding.ws port="http://xmlns.oracle.com/TestApp/TestSOA/BPEL#wsdl.endpoint(bpel_client_ep/BPEL_pt)"/>
@@ -23,6 +24,14 @@
       <property name="weblogic.wsee.wsat.transaction.flowOption" type="xs:string" many="false">NEVER</property>
     </binding.ws>
   </service>
+  <service name="bpelprocess1_client_ep" ui:wsdlLocation="BPELProcess1.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess1#wsdl.interface(BPELProcess1)"
+                    callbackInterface="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess1#wsdl.interface(BPELProcess1Callback)"/>
+    <binding.ws port="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess1#wsdl.endpoint(bpelprocess1_client_ep/BPELProcess1_pt)"/>
+    <callback>
+      <binding.ws port="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess1#wsdl.endpoint(bpelprocess1_client_ep/BPELProcess1Callback_pt)"/>
+    </callback>
+  </service>
   <property name="productVersion" type="xs:string" many="false">11.1.1.7.8</property>
   <component name="Mediator1">
     <implementation.mediator src="Mediator1.mplan"/>
@@ -30,6 +39,13 @@
   <component name="BPEL" version="2.0">
     <implementation.bpel src="BPEL.bpel"/>
     <property name="bpel.config.transaction" type="xs:string" many="false">required</property>
+    <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string" many="false">async.persist</property>
+  </component>
+  <component name="Mediator2">
+    <implementation.mediator src="Mediator2.mplan"/>
+  </component>
+  <component name="BPELProcess1" version="1.1">
+    <implementation.bpel src="BPELProcess1.bpel"/>
     <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string" many="false">async.persist</property>
   </component>
   <wire>
@@ -43,5 +59,9 @@
   <wire>
     <source.uri>BPEL/Mediator1.Mediator1</source.uri>
     <target.uri>Mediator1/Mediator1</target.uri>
+  </wire>
+  <wire>
+    <source.uri>bpelprocess1_client_ep</source.uri>
+    <target.uri>BPELProcess1/bpelprocess1_client</target.uri>
   </wire>
 </composite>
