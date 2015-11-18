@@ -14,6 +14,7 @@
   <import namespace="http://oracle.com/sca/soapservice/TestApp/TestSOA/Service1" location="Service1.wsdl" importType="wsdl"/>
   <import namespace="http://oracle.com/sca/soapservice/TestApp/TestSOA/Service1" location="Service1Wrapper.wsdl" importType="wsdl"/>
   <import namespace="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess1" location="BPELProcess1.wsdl" importType="wsdl"/>
+  <import namespace="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess2" location="BPELProcess2.wsdl" importType="wsdl"/>
   <service name="bpel_client_ep" ui:wsdlLocation="BPEL.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/TestApp/TestSOA/BPEL#wsdl.interface(BPEL)"/>
     <binding.ws port="http://xmlns.oracle.com/TestApp/TestSOA/BPEL#wsdl.endpoint(bpel_client_ep/BPEL_pt)"/>
@@ -32,6 +33,14 @@
       <binding.ws port="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess1#wsdl.endpoint(bpelprocess1_client_ep/BPELProcess1Callback_pt)"/>
     </callback>
   </service>
+  <service name="bpelprocess2_client_ep" ui:wsdlLocation="BPELProcess2.wsdl">
+    <interface.wsdl interface="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess2#wsdl.interface(BPELProcess2)"
+                    callbackInterface="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess2#wsdl.interface(BPELProcess2Callback)"/>
+    <binding.ws port="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess2#wsdl.endpoint(bpelprocess2_client_ep/BPELProcess2_pt)"/>
+    <callback>
+      <binding.ws port="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess2#wsdl.endpoint(bpelprocess2_client_ep/BPELProcess2Callback_pt)"/>
+    </callback>
+  </service>
   <property name="productVersion" type="xs:string" many="false">11.1.1.7.8</property>
   <component name="Mediator1">
     <implementation.mediator src="Mediator1.mplan"/>
@@ -48,6 +57,10 @@
   <component name="Mediator2">
     <implementation.mediator src="Mediator2.mplan"/>
   </component>
+  <component name="BPELProcess2" version="2.0">
+    <implementation.bpel src="BPELProcess2.bpel"/>
+    <property name="bpel.config.oneWayDeliveryPolicy" type="xs:string" many="false">async.persist</property>
+  </component>
   <wire>
     <source.uri>bpel_client_ep</source.uri>
     <target.uri>BPEL/bpel_client</target.uri>
@@ -63,5 +76,9 @@
   <wire>
     <source.uri>bpelprocess1_client_ep</source.uri>
     <target.uri>BPELProcess1/bpelprocess1_client</target.uri>
+  </wire>
+  <wire>
+    <source.uri>bpelprocess2_client_ep</source.uri>
+    <target.uri>BPELProcess2/bpelprocess2_client</target.uri>
   </wire>
 </composite>

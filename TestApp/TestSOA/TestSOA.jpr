@@ -9,6 +9,10 @@
    <value n="BPELProcess1_ProcessName" v="BPELProcess1"/>
    <value n="BPELProcess1_Template" v="BPEL_ASYNC_PROCESS"/>
    <value n="BPELProcess1_wsdl" v="BPELProcess1.wsdl"/>
+   <value n="BPELProcess2_Namespace" v="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess2"/>
+   <value n="BPELProcess2_ProcessName" v="BPELProcess2"/>
+   <value n="BPELProcess2_Template" v="BPEL_ASYNC_PROCESS"/>
+   <value n="BPELProcess2_wsdl" v="BPELProcess2.wsdl"/>
    <hash n="component-versions">
       <value n="oracle.adfdt.controller.adfc.source.migration.AdfControllerSchemaMigrator" v="11.1.1.1.0"/>
       <value n="oracle.adfdt.controller.common.migrator.ProjectMigrator" v="11.1.1.1.0"/>
@@ -70,7 +74,7 @@
       <string v="oracle.bpm.fusion.repository.BPMProjectSettings/bpmProjectsProcessesContentSet"/>
    </list>
    <value n="defaultPackage" v="testsoa"/>
-   <value n="Namespace" v="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess1"/>
+   <value n="Namespace" v="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess2"/>
    <hash n="oracle.ide.model.ResourcePaths">
       <hash n="resourcesContentSet">
          <list n="url-path"/>
@@ -373,7 +377,7 @@
          </list>
       </hash>
    </hash>
-   <value n="ProcessName" v="BPELProcess1"/>
+   <value n="ProcessName" v="BPELProcess2"/>
    <value n="Template" v="BPEL_ASYNC_PROCESS"/>
    <value n="TestBPEL_Namespace" v="http://xmlns.oracle.com/TestApp/TestSOA/TestBPEL"/>
    <value n="TestBPEL_ProcessName" v="TestBPEL"/>

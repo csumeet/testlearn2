@@ -1,6 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<process name="BPELProcess1" targetNamespace="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess1" xmlns="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:client="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess1" xmlns:ora="http://schemas.oracle.com/xpath/extension" xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" id="BpPrc0">
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Nov 18 13:07:15 IST 2015
+  Author:  welcome
+  Type: BPEL 2.0 Process
+  Purpose: Asynchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="BPELProcess2"
+         targetNamespace="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess2"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:client="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess2"
+         xmlns:ora="http://schemas.oracle.com/xpath/extension"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
 
+    <import namespace="http://xmlns.oracle.com/TestApp/TestSOA/BPELProcess2" location="BPELProcess2.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <!-- 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         PARTNERLINKS                                                      
@@ -13,7 +30,7 @@
       used for callback. The location and correlation information associated
       with the client role are automatically set using WS-Addressing.
     -->
-        <partnerLink name="bpelprocess1_client" partnerLinkType="client:BPELProcess1" myRole="BPELProcess1Provider" partnerRole="BPELProcess1Requester"/>
+        <partnerLink name="bpelprocess2_client" partnerLinkType="client:BPELProcess2" myRole="BPELProcess2Provider" partnerRole="BPELProcess2Requester"/>
     </partnerLinks>
 
     <!-- 
@@ -24,10 +41,10 @@
     -->
     <variables>
         <!-- Reference to the message passed as input during initiation -->
-        <variable name="inputVariable" messageType="client:BPELProcess1RequestMessage"/>
+        <variable name="inputVariable" messageType="client:BPELProcess2RequestMessage"/>
 
         <!-- Reference to the message that will be sent back to the requester during callback -->
-        <variable name="outputVariable" messageType="client:BPELProcess1ResponseMessage"/>
+        <variable name="outputVariable" messageType="client:BPELProcess2ResponseMessage"/>
     </variables>
 
     <!-- 
@@ -37,22 +54,13 @@
        services integrated within this business process                  
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     -->
-    <sequence name="main" id="BpSeq0">
-        <!-- Receive input from requestor. (Note: This maps to operation defined in BPELProcess1.wsdl) -->
-        <receive name="receiveInput" partnerLink="bpelprocess1_client" portType="client:BPELProcess1" operation="process" variable="inputVariable" createInstance="yes" id="BpRcv0"/>
+    <sequence name="main">
+        <!-- Receive input from requestor. (Note: This maps to operation defined in BPELProcess2.wsdl) -->
+        <receive name="receiveInput" partnerLink="bpelprocess2_client" portType="client:BPELProcess2" operation="process" variable="inputVariable" createInstance="yes"/>
 
         <!-- 
           Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
         -->
-        <invoke name="callbackClient" partnerLink="bpelprocess1_client" portType="client:BPELProcess1Callback" operation="processResponse" inputVariable="outputVariable" id="BpInv0"/>
+        <invoke name="callbackClient" partnerLink="bpelprocess2_client" portType="client:BPELProcess2Callback" operation="processResponse" inputVariable="outputVariable"/>
     </sequence>
-</process><!--
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  Oracle JDeveloper BPEL Designer 
-  
-  Created: Wed Nov 18 12:18:31 IST 2015
-  Author:  welcome
-  Type: BPEL 1.1 Process
-  Purpose: Asynchronous BPEL Process
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
--->
+</process>
